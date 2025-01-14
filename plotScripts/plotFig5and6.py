@@ -5,7 +5,7 @@ import xarray as xr
 import numpy as np
 import os
 
-indir = "../HYBRID/feedback_result/"
+indir = "../results/"
 
 #figNr = "5"    #wheat and rice
 figNr = "6"   #Oil seeds and cereal grains
