@@ -1,9 +1,9 @@
 import pandas as pd
 import numpy as np
 
-kTempDir = "results/tempFactors/"
-kConcDir = "results/concFactors/"
-outDir = "results/"
+kTempDir = "../results/tempFactors/"
+kConcDir = "../results/concFactors/"
+outDir = "../results/"
 
 #W = "noirr"
 W = "firr"
