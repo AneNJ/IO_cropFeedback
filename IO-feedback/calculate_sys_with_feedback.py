@@ -2,12 +2,11 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-outDir = "feedback_result/"
+outDir = "../results/"
 
 fNameOut = "concAndTempFeedback.csv"
-#fNameOut = "tempFeedback.csv"
-#fNameOut = "concFeedback.csv"
-#fNameOut =  "noFeedback.csv"  #this should be as original x
+#fNameOut = "tempFeedback.csv"   #CO2_to_conc=0
+#fNameOut = "concFeedback.csv"   #tcre=0
 
 w = "firr"
 ts = "5"
