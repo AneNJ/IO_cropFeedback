@@ -1,9 +1,9 @@
 import pandas as pd
 import numpy as np
 
-kTempDir = "/div/qbo/users/anenj/GTDR/calcSensitivityFactors/tempFactors/"
-kConcDir = "/div/qbo/users/anenj/GTDR/calcSensitivityFactors/concFactors/"
-outDir = "k_factors/"
+kTempDir = "results/tempFactors/"
+kConcDir = "results/concFactors/"
+outDir = "results/"
 
 #W = "noirr"
 W = "firr"
