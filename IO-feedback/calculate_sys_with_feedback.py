@@ -12,7 +12,7 @@ w = "firr"
 ts = "5"
 
 # ********** Read k-file *********
-f_kFactor = "k_factors/kFactors_"+w+"_"+ts+".csv"
+f_kFactor = "../results/kFactors_"+w+"_"+ts+".csv"
 # ***************************************************
 
 # ********** Set parameters **********
