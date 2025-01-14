@@ -14,7 +14,7 @@ EXIOBASEv3 2011 (10.5281/zenodo.10148587)
 
 ### Packages used:
 <pre>
-conda: glob, xarray, pandas, os, numpy, time, matplotlib
+conda: glob, xarray, pandas, os, numpy, time, matplotlib, cartopy
 cdo for time averaging in gridded_day_to_yearly_glob.py
 </pre>
 
