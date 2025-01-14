@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-inDir =  "/div/no-backup/users/anenj/EXIOBASE3/EXIOBASE3_HYBRID/csv_from_xlsx/"
+inDir =  "EXIOBASE3/EXIOBASE3_HYBRID/csv_from_xlsx/"
 outDir = "EXIOBASE_data/"
 
 # ******************** READ IN DATA ********************                
