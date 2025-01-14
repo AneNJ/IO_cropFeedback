@@ -14,7 +14,7 @@ EXIOBASEv3 2011 (10.5281/zenodo.10148587)
 
 ### Packages used:
 <pre>
-conda: glob, xarray, pandas, os, numpy
+conda: glob, xarray, pandas, os, numpy, time
 cdo for time averaging in gridded_day_to_yearly_glob.py
 </pre>
 
@@ -29,26 +29,31 @@ EXIOBASE crop production has unit [tonnes]
 
 ### calcSensitivityFactors:
 <pre>
-calc_concFactor.py              - Calculating k_conc on country level.
-calc_tempFactor.py              - Calulacting k_temp on country level.
 countNans.py                    - Code used to look into the ISIMIP crop data and compare coverage.
 gridded_day_to_yearly_glob.py   - Create global mean temperature time serise from ISIMIP tas-files.
 countryCodesWithMapNr.csv       - Table for mapping country code to right area in country masking file.
+calc_concFactor.py              - Calculating k_conc on country level.
+calc_tempFactor.py              - Calulacting k_temp on country level.
 </pre>
 
 ### IO-feedback:
 <pre>
-averageOver_k_fators.py                      - Mapping k-factors from ISIMP crop cathegories to EXIOBASE crop sectors.
-calculate_sys_with_feedback.py               - Calculation total production when feedback is applied.
-calculate_sys_with_feedback_dynamic_loop.py  - Dynamic version of the feedback calculation, update and run for several years.
+excel_to_csv.py                              - Converting EXIOBASE xlsx files to csv. 
+create_x_fd_Z_and_A.py                       - Preparing the IO matrices needed for the calculation from the EXIOBASE dataset.
 create_F_y_onlyCO2.py                        - Preparing the IO matrices needed for the calculation from the EXIOBASE dataset.
 create_S_onlyCO2.py                          - Preparing the IO matrices needed for the calculation from the EXIOBASE dataset.
-create_x_fd_Z_and_A.py                       - Preparing the IO matrices needed for the calculation from the EXIOBASE dataset.
+averageOver_k_fators.py                      - Mapping k-factors from ISIMP crop cathegories to EXIOBASE crop sectors.
+calculate_sys_with_feedback.py               - Calculating total production when feedback is applied.
+calculate_sys_with_feedback_dynamic_loop.py  - Dynamic version of the feedback calculation, update and run for several years.
 </pre>
 
 ### results:
 <pre>
 globTemp/temp_climateMod_rcpXX.csv - Global mean temperature timeseries [K] for the different forcing models and rcp's.
+k_conc_glob.csv                    - Global concentration k-factor before averaging over all years. Used to check linearity.
+                                     (Calculated in plotFig1.py)
+k_temp_glob.csv                    - Global temperature k-factor for the forcing case rcp60 gfdl-esm2m. Used to check linearity.
+                                     (Calculated in plotFig1.py)
 tempFactors/reg_firr_5_15.csv      - Temperature k factors for each country, 5 means 5 first year in isimip data was skipped in the
                                      calculation, 15 is the averaging periode for the calculation.
 concFactors/reg_firr_5.csv         - Concentration k factors for each country, 5 means 5 first year in isimip data was skipped in
@@ -67,10 +72,6 @@ concFeedback_dynamic.csv           - Same as for non-dynamic case, but for 10 ye
                                      "no feedback"-column, no diff-column.
 tempFeedback_dynamic.csv           - Same as for non-dynamic case, but for 10 years. The "orig"-column (last column) is the
                                      "no feedback"-column, no diff-column.
-k_conc_glob.csv                    - Global concentration k-factor before averaging over all years. Used to check linearity.
-                                     (Calculated in plotFig1.py)
-k_temp_glob.csv                    - Global temperature k-factor for the forcing case rcp60 gfdl-esm2m. Used to check linearity.
-                                     (Calculated in plotFig1.py)
 </pre>
 
 ### plotScripts:
