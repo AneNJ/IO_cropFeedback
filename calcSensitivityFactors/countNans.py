@@ -2,7 +2,7 @@ import glob
 import numpy as np
 import xarray as xr
 
-isimipDir = "/div/no-backup/users/anenj/ISIMIP/"
+isimipDir = "ISIMIP/" #Path to ISIMIP data
 
 mod = "clm45"
 #mod = "gepic"
