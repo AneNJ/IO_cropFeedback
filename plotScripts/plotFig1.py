@@ -5,7 +5,7 @@ import xarray as xr
 import numpy as np
 import os
 
-isimipDir = "/div/no-backup/users/anenj/ISIMIP/"
+isimipDir = "ISIMIP/" #Path to ISIMIP dataset
 
 fig,axs = plt.subplots(2,2,figsize=(14,10),dpi=600)
 w = "firr"
@@ -281,7 +281,7 @@ axs[1,0].set_xlabel("Year",font={"size":15})
 axs[1,1].set_xlabel("Year",font={"size":15})
 
 plt.savefig("plots/figure_1.png")
-#plt.savefig("slettMeg.png")  #remember dpi
-#cmd = "display slettMeg.png &"
+#plt.savefig("test.png")  #remember dpi
+#cmd = "display test.png &"
 #os.system(cmd)
 
