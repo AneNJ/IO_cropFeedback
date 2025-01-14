@@ -14,11 +14,11 @@ regions = ['AT', 'AU', 'BE', 'BG', 'BR', 'CA', 'CH',
 scens = ["rcp26","rcp60","rcp85"]
 
 # ********* table and map needed for masking **********
-df_regs = pd.read_csv("../prepareMaskStuff/countryCodesWithMapNr.csv",index_col="code2")
-ds_regs = xr.open_dataset("../prepareMaskStuff/GPW3_countries_0_5deg_2011_27315.nc")
+df_regs = pd.read_csv("../calcSensitivityFactors/countryCodesWithMapNr.csv",index_col="code2")
+ds_regs = xr.open_dataset("GPW3_countries_0_5deg_2011_27315.nc")   #Netcdf country file
 # *****************************************************
 
-tempDir = "/div/no-backup/users/anenj/ISIMIP/temp/merged/"
+tempDir = "/ISIMIP/temp/merged/" #path to ISIMIP temperature data
 
 tasFiles = ["tas_day_GFDL-ESM2M_rcp26_r1i1p1_EWEMBI_20060101-20991231.nc4",
             "tas_day_GFDL-ESM2M_rcp60_r1i1p1_EWEMBI_20060101-20991231.nc4",
