@@ -5,7 +5,7 @@ import xarray as xr
 import numpy as np
 import os
 
-tempFactor_dir = "/div/qbo/users/anenj/GTDR/calcSensitivityFactors/concFactors/"
+tempFactor_dir = "../results/concFactors/"
 
 regions = ['AT', 'AU', 'BE', 'BG', 'BR', 'CA', 'CH',
            'CN', 'CY', 'CZ', 'DE', 'DK', 'EE', 'ES',
