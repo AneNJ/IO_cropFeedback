@@ -67,9 +67,6 @@ D = pd.DataFrame(data=0,index=x.index,columns=["d_conc","d_temp"])
 D["d_temp"] = -1*x["totProd"]*df_kFactor["k_temp"]
 D["d_conc"] = -1*x["totProd"]*df_kFactor["k_conc"]
 D = D.fillna(0.)
-
-
-
 D.columns = pd.MultiIndex.from_product([["-"],D.columns])
 
 # ********** Stressors **********
