@@ -39,7 +39,7 @@ F_y = pd.read_csv(inDir+"F_y.csv", index_col=[0,1], header=[0])
 ########################
 
 ##### READ IN k-file #####
-f_kFactor = "k_factors/kFactors_firr_5.csv"
+f_kFactor = "../results/kFactors_firr_5.csv"
 ##########################
 
 ################# GET SENSITIVITY FACTORS, save to df (D-matrix) ###############
@@ -124,4 +124,4 @@ for year in years :
 runTime = ptime.time()-startTime
 print(runTime)
 
-df_out.to_csv("feedback_result/"+fnameOut)
+df_out.to_csv("../results/"+fnameOut)
