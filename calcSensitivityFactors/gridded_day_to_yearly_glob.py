@@ -5,7 +5,7 @@ import numpy as np
 import os
 
 # ********** daily to yearly **********
-#inFiles = glob.glob("merged/*.nc4")
+#inFiles = glob.glob("merged/*.nc4")   #Path to ISIMIP temp files
 
 #for f in inFiles:
 #    fout = f.replace("merged","yearly")
@@ -33,6 +33,6 @@ for f in inFiles:
     var = var.weighted(weights)
     var = var.mean(dim=("lat","lon"))
     df["temp"] = var
-    df.to_csv("csv/"+fileName)
+    df.to_csv("..results/globTemp/"+fileName)
 
 #+ removed row for 2100 for the files that had that
