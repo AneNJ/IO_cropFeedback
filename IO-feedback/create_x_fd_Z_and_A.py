@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-inDir ="/div/no-backup/users/anenj/EXIOBASE3/EXIOBASE3_HYBRID/"
+inDir ="EXIOBASE3/EXIOBASE3_HYBRID/" #Path to EXIOBASE dataset
 outDir = "EXIOBASE_data/"
 
 # ******************** inFiles : ********************
