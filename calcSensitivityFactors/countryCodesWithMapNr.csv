@@ -1,0 +1,50 @@
+country,mask_nr,code2,code3,continent
+?,?,WF,?,?
+South Africa,347,ZA,ZAF,Africa
+United States of America,85,US,USA,North America
+Mexico,75,MX,MEX,North America
+?,?,WL,?,?
+Brazil,4,BR,BRA,South America
+Canada,60,CA,CAN,North America
+Indonesia,164,ID,IDN,Asia
+India,165,IN,IND,Asia
+Japan,200,JP,JPN,Asia
+China,160,CN,CHN,Asia
+Cyprus,161,CY,CYP,Asia
+Taiwan,202,TW,TWN,Asia
+Turkey,196,TR,TUR,Asia
+Korea,173,KR,KOR,Asia
+Spain,113,ES,ESP,Europe
+Sweden,146,SE,SWE,Europe
+Slovenia,145,SI,SVN,Europe
+Slovakia,144,SK,SVK,Europe
+Russia,140,RU,RUS,Europe
+Romania,139,RO,ROU,Europe
+Portugal,138,PT,PRT,Europe
+Poland,137,PL,POL,Europe 
+Norway,136,NO,NOR,Europe
+Netherlands,135,NL,NLD,Europe
+Switzerland,109,CH,CHE,Europe
+Malta,134,MT,MLT,Europe
+Luxembourg,129,LU,LUX,Europe
+Ireland,124,IE,IRL,Europe 
+Latvia,130,LV,LVA,Europe
+?,?,WE,?,?
+Austria,104,AT,AUT,Europe
+Belgium,105,BE,BEL,Europe
+Bulgaria,106,BG,BGR,Europe
+Croatia,122,HR,HRV,Europe
+Czech Republic,110,CZ,CZE,Europe
+Lithuania,128,LT,LTU,Europe
+Denmark,112,DK,DNK,Europe
+Finland,115,FI,FIN,Europe
+France,116,FR,FRA,Europe
+Germany,111,DE,DEU,Europe
+Greece,121,GR,GRC,Europe
+Hungary,123,HU,HUN,Europe
+United Kingdom,118,GB,GBR,Europe
+Italy,125,IT,ITA,Europe
+Estonia,114,EE,EST,Europe
+Australia,23,AU,AUS,Oceania
+?,?,WM,?,?
+?,?,WA,?,?
