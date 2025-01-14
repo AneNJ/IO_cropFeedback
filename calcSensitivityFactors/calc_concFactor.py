@@ -5,7 +5,7 @@ import numpy as np
 
 # Calculating  for all crops
 
-ISIMIP_dir = "ISIMIP/" #Path ot ISIMIP dataset
+ISIMIP_dir = "ISIMIP/" #Path to ISIMIP dataset
 outDir = "../results/concFactors/"
 
 #################### Create landmask from lpjml file ####################
