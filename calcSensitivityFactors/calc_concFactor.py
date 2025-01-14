@@ -5,8 +5,8 @@ import numpy as np
 
 # Calculating  for all crops
 
-ISIMIP_dir = "/div/no-backup/users/anenj/ISIMIP/"
-outDir = "concFactors/"
+ISIMIP_dir = "ISIMIP/" #Path ot ISIMIP dataset
+outDir = "../results/concFactors/"
 
 #################### Create landmask from lpjml file ####################
 f = ISIMIP_dir+"rcp26/co2/lpjml_gfdl-esm2m_ewembi_rcp26_2005soc_co2_yield-ric-firr_global_annual_2006_2099.nc4"
@@ -20,8 +20,8 @@ w = "firr"
 #w = "noirr"
 
 # ********* table and map needed for masking **********
-df_regs = pd.read_csv("../prepareMaskStuff/countryCodesWithMapNr.csv",index_col="code2")
-ds_regs = xr.open_dataset("../prepareMaskStuff/GPW3_countries_0_5deg_2011_27315.nc")
+df_regs = pd.read_csv("countryCodesWithMapNr.csv",index_col="code2")
+ds_regs = xr.open_dataset("GPW3_countries_0_5deg_2011_27315.nc")   #country def. file
 # *****************************************************
 
 #cropMods = ["CLM45", "GEPIC", "LPJmL", "PEPIC"]
