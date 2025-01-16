@@ -8,7 +8,7 @@ In addition there is a folder containing the results on csv-format, and one with
 <pre>
 ISIMIP2b input data <A href="https://doi.org/10.48364/ISIMIP.943362">CO2</A> and <A href="https://doi.org/10.48364/ISIMIP.208515">temperature</A> 
 ISIMIP2b output data <A href="https://doi.org/10.48364/ISIMIP.682003.1">crop yield</A>
-EXIOBASEv3 2011 <A href="10.5281/zenodo.10148587">IO-dataset</A>
+EXIOBASEv3 2011 <A href="https://doi.org/10.5281/zenodo.10148587">IO-dataset</A>
 Netcdf with country definitions to mask out crop data for each EXIOBASE country separatly,
 region boarders used is from the <A href="https://www.ciesin.columbia.edu/repository/metadata/ig/Browse/GriddedPopulationoftheWorldVersion3GPWv3NationalIdentifierGrid.html">GPWv3</A> dataset
 </pre>
