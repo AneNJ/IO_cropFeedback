@@ -31,7 +31,7 @@ EXIOBASE crop production has unit [tonnes]
 ### calcSensitivityFactors:
 <pre>
 countNans.py                    - Code used to look into the ISIMIP crop data and compare coverage.
-gridded_day_to_yearly_glob.py   - Create global mean temperature time serise from ISIMIP tas-files.
+gridded_day_to_yearly_glob.py   - Create global mean temperature time series from ISIMIP tas-files.
 countryCodesWithMapNr.csv       - Table for mapping country code to right area in country masking file.
 calc_concFactor.py              - Calculating k_conc on country level.
 calc_tempFactor.py              - Calulacting k_temp on country level.
