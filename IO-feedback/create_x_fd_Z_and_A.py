@@ -1,8 +1,9 @@
 import pandas as pd
 import numpy as np
 
-inDir ="EXIOBASE3/EXIOBASE3_HYBRID/" #Path to EXIOBASE dataset
-outDir = "EXIOBASE_data/"
+inDir ="/div/no-backup/users/anenj/EXIOBASE3/EXIOBASE3_HYBRID/"
+#outDir = "EXIOBASE_data/"
+outDir = "slettMeg/"
 
 # ******************** inFiles : ********************
 Z = pd.read_csv(inDir+"MR_HIOT_2011_v3_3_18_by_product_technology.csv",
@@ -19,7 +20,6 @@ Z_sum = Z.sum(axis=1).to_frame(name ="totProd")
 fd = fd.sum(axis=1).to_frame(name="totProd")
 
 x = Z_sum + fd
-fd.columns = ["fd"]
 # **********************************************************************
 
 # *************** Identify non-zero Z-columns corresponding ****************
@@ -37,6 +37,13 @@ Z_zero = Z_zero.loc[:,(Z_zero!=0).any(axis=0)]
 Z[Z_zero.columns] = 0  #Replace by 0
 Z.columns = Z_cols    #swap back to orig column-names
 # **************************************************************************
+
+# ********** Recalculate x since some elements in Z are now removed.. **********
+Z_sum = Z.sum(axis=1).to_frame(name ="totProd")
+x = Z_sum + fd
+
+fd.columns = ["fd"]
+# ******************************************************************************
 
 # ******************** Calculate A ********************
 A = Z.divide(x["totProd"].values,axis=1)
