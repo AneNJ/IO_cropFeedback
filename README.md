@@ -35,6 +35,9 @@ gridded_day_to_yearly_glob.py   - Create global mean temperature time series fro
 countryCodesWithMapNr.csv       - Table for mapping country code to right area in country masking file.
 calc_concFactor.py              - Calculating k_conc on country level.
 calc_tempFactor.py              - Calulacting k_temp on country level.
+calc_k_conc_glob.py             - Calculating k_conc, global case.
+calc_k_temp_glob.py             - Calculating k_temp, global case.
+calc_k_temp_glob_timeseries.py  - Calculating k_temp varying which year is included in the last time period. 
 </pre>
 
 ### IO-feedback:
@@ -51,10 +54,10 @@ calculate_sys_with_feedback_dynamic_loop.py  - Dynamic version of the feedback c
 ### results:
 <pre>
 globTemp/temp_climateMod_rcpXX.csv - Global mean temperature timeseries [K] for the different forcing models and rcp's.
-k_conc_glob.csv                    - Global concentration k-factor before averaging over all years. Used to check linearity.
-                                     (Calculated in plotFig1.py)
-k_temp_glob.csv                    - Global temperature k-factor for the forcing case rcp60 gfdl-esm2m. Used to check linearity.
-                                     (Calculated in plotFig1.py)
+k_conc_glob.csv                    - Global concentration k-factor before averaging over all years, calculated by 
+                                     calc_conc_glob.py
+k_temp_glob.csv                    - Global temperature k-factor calculated by calc_k_temp_glob.py
+k_temp_glob_timeseries.csv         - Global temperature k-faktor timeseries calculated by calc_k_temp_glob_timeseries.py
 tempFactors/reg_firr_5_15.csv      - Temperature k factors for each country, 5 means 5 first year in isimip data was skipped in the
                                      calculation, 15 is the averaging periode for the calculation.
 concFactors/reg_firr_5.csv         - Concentration k factors for each country, 5 means 5 first year in isimip data was skipped in
