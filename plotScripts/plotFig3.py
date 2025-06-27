@@ -46,8 +46,7 @@ scens = ["rcp26","rcp60","rcp85"]
 ############################### Table One ################################
 plt.sca(axs["A)"])
 
-indir = "/div/no-backup/users/anenj/ISIMIP/"
-#indir = "/div/no-backup-nac/users/anenj/ISIMIP_slettMeg/"
+indir = "ISIMIP/" #Path to ISIMIP dataset
 
 index = pd.MultiIndex.from_product([[" "+i for i in scens],ISIMIP_cropTypes],names=["",""])
 columns = pd.MultiIndex.from_product([cropMod,cmipMods],names=["",""])
