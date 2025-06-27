@@ -156,7 +156,7 @@ axs[0,1].set_ylabel("",font={"size":15})
 axs[1,0].set_ylabel("",font={"size":15})
 axs[1,1].set_ylabel("",font={"size":15})
 
-plt.savefig("plots/figure_2.png")
+plt.savefig("plots/figure2.png")
 #plt.savefig("test.png")
 #cmd = "display test.png & "
 #os.system(cmd)
