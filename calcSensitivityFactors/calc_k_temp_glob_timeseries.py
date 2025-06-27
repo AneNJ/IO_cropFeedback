@@ -3,9 +3,9 @@ import pandas as pd
 import os
 import numpy as np
 
-#Values calculated here are only used for plot in fig one to test linearity
+#Values calculated here are only used for plot in fig1 to test linearity
 
-isimipDir = "/div/no-backup/users/anenj/ISIMIP/"
+isimipDir = "ISIMIP/" #Path to ISIMIP dataset
 w = "firr"
 
 scenList = ["rcp26","rcp60"]
@@ -75,7 +75,5 @@ for scen in scenList:
                     #exit()
                     
 
-df_out_timeSeries.to_csv("globFactors/k_temp_glob_timeseries.csv")
-
-
+df_out_timeSeries.to_csv("results/k_temp_glob_timeseries.csv")
 #####################################################
