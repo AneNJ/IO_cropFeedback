@@ -4,7 +4,7 @@ import xarray as xr
 
 #Values calculated here are only used for plot in fig one to test linearity
 
-isimipDir = "/div/no-backup/users/anenj/ISIMIP/"
+isimipDir = "ISIMIP/" #Path to ISIMIP dataset
 
 w = "firr"
 
@@ -18,8 +18,8 @@ cropList = ["soy","mai","whe","ric"]
 forcingList = ["gfdl-esm2m","hadgem2-es","ipsl-cm5a-lr", "miroc5"]
 cropModList = ["gepic","lpjml","clm45"]
 
-ds = xr.open_dataset("landMask_lpjml.nc")
-landMask = ds["landMask"]
+#ds = xr.open_dataset("landMask_lpjml.nc")
+#landMask = ds["landMask"]
 
 for scen in scenList:
     concFile_rcp = isimipDir+"co2_conc/co2_"+scen+"_2006-2099.txt"
@@ -53,7 +53,7 @@ for scen in scenList:
                 k = var/diff_co2
                 df_out_conc[scen+"_"+cropMod+"_"+crop+"_"+forcing] = k.values
         
-df_out_conc.to_csv("globFactors/k_conc_glob.csv")
+df_out_conc.to_csv("../results/k_conc_glob.csv")
 #df_out_conc.to_csv("globFactors/k_conc_glob_landMask.csv")
 
 
