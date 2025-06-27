@@ -2,14 +2,14 @@ import xarray as xr
 import numpy as np
 import pandas as pd
 
-f_k_conc = "../calcSensitivityFactors/globFactors/k_conc_glob.csv"
+f_k_conc = "../results/k_conc_glob.csv"
 
 df_k_conc = pd.read_csv(f_k_conc,index_col=0,header=0)
 df_k_conc = df_k_conc.mean(axis=0)  #averaging over all years
 
 w="firr"
 
-isimipDir = "/div/no-backup/users/anenj/ISIMIP/"
+isimipDir = "ISIMIP/" #Path to ISIMIP dataset
 
 columns = [i+"_delta_y" for i in df_k_conc.index] +  [i+"_delta_var" for i in df_k_conc.index]
 df_out = pd.DataFrame(index=range(2006,2100),columns=columns)
