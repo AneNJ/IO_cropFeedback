@@ -7,7 +7,7 @@ from matplotlib import cm
 import matplotlib as mpl
 
 distFromEndOfScale = 0.5
-df_tempScale = pd.read_csv("meanRegTemp_10YearTimeAvg.csv",index_col=0)
+df_tempScale = pd.read_csv("/div/qbo/users/anenj/GTDR/moreScripts/meanRegTemp_10YearTimeAvg.csv",index_col=0)
 df_tempScale = df_tempScale.mean(axis=1).to_frame()
 df_tempScale.columns = ["tas"]
 tas_min = df_tempScale["tas"].min()-distFromEndOfScale
@@ -34,7 +34,7 @@ fig.delaxes(axs[1,2])
 xticksize = 15
 yticksize = 15
 
-inDir = "../results/"
+inDir = "../HYBRID/feedback_result/"
 
 RoW_list = ["WA","WL","WE","WF","WM"]
 
@@ -163,7 +163,7 @@ for n,ax in enumerate(axs.flat):
     ax.text(0.03, 0.9, letters[n], transform=ax.transAxes, 
             size=20, weight='bold')
 
-plt.savefig("plots/figure_7.png")
-#plt.savefig("test.png")
-#cmd = "display test.png &"
+fName = "plots/figure7.png"
+plt.savefig(fName)
+#cmd = "display "+fName+" &"
 #os.system(cmd)
