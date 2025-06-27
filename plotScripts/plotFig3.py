@@ -1,86 +1,161 @@
+import pandas as pd
+import glob
+import numpy as np
+import seaborn as sns
 import matplotlib.pyplot as plt
 import matplotlib as mpl
-import pandas as pd
-import xarray as xr
-import numpy as np
+from matplotlib import cm, colors
 import os
 
-tempFactor_dir = "../results/tempFactors/"
+fig, axs = plt.subplot_mosaic([["A)", "A)","A)"], ["A)", "A)","A)"],["C)", "B)","B)"]],
+                              constrained_layout=False,figsize=(10,8),facecolor="#E5CCFF",dpi=600)
 
-regions = ['AT', 'AU', 'BE', 'BG', 'BR', 'CA', 'CH',
-           'CN', 'CY', 'CZ', 'DE', 'DK', 'EE', 'ES',
-           'FI', 'FR', 'GB', 'GR', 'HR', 'HU', 'ID',
-           'IE', 'IN', 'IT', 'JP', 'KR', 'LT', 'LU',
-           'LV', 'MT', 'MX', 'NL', 'NO', 'PL', 'PT',
-           'RO', 'RU', 'SE', 'SI', 'SK', 'TR', 'US',
-           'ZA']
 
-#(SKIPPING TW FROM LIST OF REGIONS SINCE IT'S NOT IN THE HYBRID VERSION)
 
-yearint = "15"   #number of years to average over
-st = "5"         #skipping first 5 years 
-w = "firr"
-fig,axs = plt.subplots(4,1,figsize=(10,10),dpi=600)
+ISIMIP_cropTypes_dict = {"mai":"maize",
+                         "soy":"soy",
+                         "ric":"rice",
+                         "whe":"wheat",
+                         "cas":"cassava",
+                         "mil":"millet",
+                         "nut":"groundnuts",
+                         "pea":"field peas",
+                         "rap":"rapeseed",
+                         "sgb":"sugar_beet",
+                         "sug":"sugarcane",
+                         "sun":"sunflower"}
 
-forcingMods = ["GFDL-ESM2M", "HadGEM2-ES",
-               "IPSL-CM5A-LR", "MIROC5"]
+ISIMIP_cropTypes = ISIMIP_cropTypes_dict.keys()
 
-colDict = {"rcp26_GEPIC" : "#009999",
-           "rcp60_GEPIC" : "#6600CC",
-           "rcp26_LPJmL" : "#CC0066"}
-cases = list(colDict.keys())
-cropList = ["soy","mai","whe","ric"]
+EXIOBASE_cropTypes = ["Paddy rice", "Wheat", "Cereal grains nec",
+                      "Vegetables, fruit, nuts","Oil seeds",
+                      "Sugar cane, sugar beet", "Plant-based fibers",
+                      "Crops nec"]
 
-label = False
-for r,reg in enumerate(regions):
-    f = reg+"_"+w+"_"+st+"_"+yearint+".csv"
-    df = pd.read_csv(tempFactor_dir+f,index_col=[0,1],header=[0,1])
-    #print(df)
-    for c,crop in enumerate(cropList):
-        plt.sca(axs[c])
-        for case in cases:
-            values = df.loc[(case.split("_")[0],crop),(case.split("_")[1],forcingMods)].astype(float)
-            if not label:
-                #plt.scatter([r,r,r,r],values,color=colDict[case],label=case)
-                plt.scatter(r,np.mean(values),color=colDict[case],label=case)
-                if case==cases[-1]:
-                    label = True
-            else:
-                #plt.scatter([r,r,r,r],values,color=colDict[case])
-                plt.scatter(r,np.mean(values),color=colDict[case])
-            plt.title(crop,x=0.95,y=0,fontsize=30)
-            plt.xticks(fontsize=15)
-            plt.yticks(fontsize=15)
-            
-axs[0].tick_params(bottom=False, labelbottom=False)
-axs[1].tick_params(bottom=False, labelbottom=False)
-axs[2].tick_params(bottom=False, labelbottom=False)            
-axs[3].set_xticks(ticks=range(0,len(regions)),labels=regions,rotation=90)
-axs[0].axhline(y=0, color ="black", linestyle='--',linewidth=0.8)
-axs[1].axhline(y=0, color ="black", linestyle='--',linewidth=0.8)
-axs[2].axhline(y=0, color ="black", linestyle='--',linewidth=0.8)
-axs[3].axhline(y=0, color ="black", linestyle='--',linewidth=0.8)
-axs[0].set_ylabel("[1/K]",font={"size":15})
-axs[1].set_ylabel("[1/K]",font={"size":15})
-axs[2].set_ylabel("[1/K]",font={"size":15})
-axs[3].set_ylabel("[1/K]",font={"size":15})
-axs[0].set_ylim([-1,1])
-axs[1].set_ylim([-1,1])
-axs[2].set_ylim([-1,1])
-axs[3].set_ylim([-1,1])
-axs[0].set_xlim([-0.5, 42.5])
-axs[1].set_xlim([-0.5, 42.5])
-axs[2].set_xlim([-0.5, 42.5])
-axs[3].set_xlim([-0.5, 42.5])
+cropMod = ["CLM45", "GEPIC", "LPJmL", "PEPIC"]
 
-letters = ["A)","C)","B)","D)"]
-for n,ax in enumerate(axs.flat):  
-    ax.text(-0.11, 0.92, letters[n], transform=ax.transAxes, 
-            size=20, weight='bold')
+cmipDict = {"GFDL-ESM2M":"GFDL-\nESM2M",
+            "HadGEM2-ES":"HadGEM2-\nES",
+            "IPSL-CM5A-LR":"IPSL-\nCM5A-LR",
+            "MIROC5":"MIROC5\n"}
 
-fig.legend(bbox_to_anchor=(0.22,0.93),loc="upper left",fontsize=15,ncol=3)
+cmipMods = cmipDict.keys()
 
-plt.savefig("plots/figure_3.png")
-#plt.savefig("test.png")
-#cmd = "display test.png &"
+scens = ["rcp26","rcp60","rcp85"]
+
+############################### Table One ################################
+plt.sca(axs["A)"])
+
+indir = "/div/no-backup/users/anenj/ISIMIP/"
+#indir = "/div/no-backup-nac/users/anenj/ISIMIP_slettMeg/"
+
+index = pd.MultiIndex.from_product([[" "+i for i in scens],ISIMIP_cropTypes],names=["",""])
+columns = pd.MultiIndex.from_product([cropMod,cmipMods],names=["",""])
+
+df = pd.DataFrame(index=index,columns=columns)
+
+for scen in scens:
+    for crop in ISIMIP_cropTypes:
+        for cMod in cropMod:
+            for mod in cmipMods:
+                fileList1 = glob.glob(indir+scen+"/2005co2/"+cMod.lower()+"_"+mod.lower()+"_ewembi_"+scen+"_*_yield-"+crop+"-firr*.nc4")
+                n = len(fileList1)
+                if n==1:
+                    df.loc[(" "+scen,crop),(cMod,mod)] = "Y"
+                else:
+                    df.loc[(" "+scen,crop),(cMod,mod)] = "-"
+
+df = df.loc[(df!="-").any(axis=1)]
+df = df.loc[:,(df!="-").any(axis=0)]
+
+annot = df.values
+
+df[[i for i in df.columns if i[0]=="CLM45"]] = 0
+df[[i for i in df.columns if i[0]=="GEPIC"]] = 1
+df[[i for i in df.columns if i[0]=="LPJmL"]] = 2
+
+cropMods = df.columns.get_level_values(0)
+forcing = df.columns.get_level_values(1)
+cropList = df.index.get_level_values(1)
+
+#df.columns = [i.split("-")[0] for i in forcing]
+df.columns = [cmipDict[i] for i in forcing] 
+#df.columns = forcing
+df.index = [ISIMIP_cropTypes_dict[i] for i in cropList]
+
+purp = mpl.colormaps["Purples"]
+purp = purp(np.linspace(0.3, 0.6, 10))
+cmap = colors.ListedColormap(purp)
+ax = sns.heatmap(df, annot=annot, annot_kws={"color":"#000000"}, cbar=False, fmt="", cmap=cmap)
+
+xticks = [0.5, 1.5, 5.5]
+xticksLabels = ["CLM45", "GEPIC", "LPJmL"]
+#sec = ax.secondary_xaxis(location=1.07)
+sec = ax.secondary_xaxis(location=1.1)
+sec.set_xticks(xticks, labels=xticksLabels,weight="bold")
+sec.spines["top"].set_linewidth(0)
+sec.tick_params(top=False)
+
+yticks = [0.5, 12.5, 16.5]
+yticksLabels = ["RCP2.6", "RCP6.0", "RCP8.5"]
+sec = ax.secondary_yaxis(location=-0.15)
+sec.set_yticks(yticks, labels=yticksLabels,weight="bold")
+sec.spines["left"].set_linewidth(0)
+sec.tick_params(left=False)
+
+ax.tick_params(top=False, labeltop=True, bottom=False, labelbottom=False,left=False)
+
+axs["A)"].text(-0.08, 1.1, "A)", transform=ax.transAxes, 
+               size=20, weight='bold')
+
+
+################################ Table Two ################################
+plt.sca(axs["B)"])
+
+df = pd.DataFrame(data="-",index=EXIOBASE_cropTypes,columns=ISIMIP_cropTypes)
+
+marker = "Y"
+
+df.loc["Paddy rice","ric"] = marker
+
+df.loc["Wheat","whe"] = marker
+
+df.loc["Cereal grains nec","mai"] = marker
+df.loc["Cereal grains nec","mil"] = marker
+df.loc["Cereal grains nec","ric"] = marker
+df.loc["Cereal grains nec","whe"] = marker
+
+df.loc["Vegetables, fruit, nuts","cas"] = marker
+df.loc["Vegetables, fruit, nuts","pea"] = marker
+
+df.loc["Oil seeds","soy"] = marker
+df.loc["Oil seeds","rap"] = marker
+df.loc["Oil seeds","sun"] = marker
+
+df.loc["Sugar cane, sugar beet","sug"] = marker
+df.loc["Sugar cane, sugar beet","sgb"] = marker
+
+df.loc["Plant-based fibers",:] = marker
+
+df.loc["Crops nec",:] = marker
+
+annot = df.values.copy()
+df[[i for i in df.columns if True]] = 1
+
+df.columns = [ISIMIP_cropTypes_dict[i] for i in df.columns]
+
+ax = sns.heatmap(df, annot=annot, annot_kws={"color":"#000000"}, cbar=False, fmt="", cmap=cmap)
+ax.tick_params(top=False, labeltop=False, bottom=False, labelbottom=True,left=False)
+
+plt.xticks(rotation=90)
+
+axs["B)"].text(-0.4, 0.84, "B)", transform=ax.transAxes, 
+               size=20, weight='bold')
+
+axs["C)"].remove()
+
+plt.subplots_adjust(hspace=0.3,left=0.2,bottom=0.15)
+
+plt.savefig("plots/figure3.png")
+#cmd = "display plots/figure3.png &"
 #os.system(cmd)
