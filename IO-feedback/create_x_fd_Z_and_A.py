@@ -1,9 +1,8 @@
 import pandas as pd
 import numpy as np
 
-inDir ="/div/no-backup/users/anenj/EXIOBASE3/EXIOBASE3_HYBRID/"
-#outDir = "EXIOBASE_data/"
-outDir = "slettMeg/"
+inDir =  "EXIOBASE3/EXIOBASE3_HYBRID/"
+outDir = "EXIOBASE_data/"
 
 # ******************** inFiles : ********************
 Z = pd.read_csv(inDir+"MR_HIOT_2011_v3_3_18_by_product_technology.csv",
