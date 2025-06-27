@@ -2,13 +2,13 @@ import xarray as xr
 import numpy as np
 import pandas as pd
 
-f_k_temp = "../calcSensitivityFactors/globFactors/k_temp_glob.csv"
+f_k_temp = "../results/k_temp_glob.csv"
 
 df_k_temp = pd.read_csv(f_k_temp,index_col=0,header=0)
 
 w="firr"
 
-isimipDir = "/div/no-backup/users/anenj/ISIMIP/"
+isimipDir = "ISIMIP/" #Path to ISIMIP dataset 
 
 columns = [i+"_delta_y" for i in df_k_temp.index] +  [i+"_delta_var" for i in df_k_temp.index]
 df_out = pd.DataFrame(index=range(2006,2100),columns=columns)
