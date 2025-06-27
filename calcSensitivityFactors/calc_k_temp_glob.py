@@ -7,7 +7,7 @@ import numpy as np
 #This is to get glob k_temp for the relative change in yield plot
 #So calculated same way as for each country, only using year [5:21] and [-15:]
 
-isimipDir = "/div/no-backup/users/anenj/ISIMIP/"
+isimipDir = "ISIMIP/" #Path to ISIMIP dataset
 w = "firr"
 
 scenList = ["rcp26","rcp60"]
@@ -62,7 +62,7 @@ for scen in scenList:
 
                     
 df_out = pd.DataFrame(data=kList,index=caseList,columns=["k"])
-df_out.to_csv("globFactors/k_temp_glob.csv")
+df_out.to_csv("../results/k_temp_glob.csv")
 
 
 #####################################################
