@@ -77,16 +77,23 @@ tempFeedback_dynamic.csv           - Same as for non-dynamic case, but for 10 ye
 
 ### plotScripts:
 <pre>
-makeRegTempScale.py           - Calculating mean temperature for each of the EXIOBASE regions.
-meanRegTemp_10YearTimeAvg.csv - Mean temp for each of the EXIOBASE regions.
-plotFig1.py                   - Plotting ISIMIP data; CO2 conc and temp timeseries + linearity check for the crop dependence
-                                on temp and conc.
-plotFig2.py                   - Map-plots illustrating EXIOBASE countries and ISIMIP cropdata coverage.
-plotFig3.py                   - Temperature k-factors for 4 crop types.
-plotFig4.py                   - Concentration k-factors for 4 crop types.
-plotFig5and6.py               - IO feedback results for 4 crop types. 
-plotFig7.py                   - IO feedback results where countries are sorted after mean temperature.
-plotFig8.py                   - Results from feedback dynamic version.
+makeRegTempScale.py                - Calculating mean temperature for each of the EXIOBASE regions.
+meanRegTemp_10YearTimeAvg.csv      - Mean temp for each of the EXIOBASE regions.
+calc_relYieldChange_conc_glob.py   - Calculates the global relative yield changed plotted in figure 1 c)
+calc_relYieldChange_temp_glob.py   - Calculates the global relative yield changed plotted in figure 1 d)
+relYieldChange_conc.csv            - The data calucalted by calc_relYieldChange_conc_glob.py
+relYieldChange_temp.csv            - The data calucalted by calc_relYieldChange_temp_glob.py
+plotFig1.py                        - Plotting ISIMIP data; CO2 conc and temp timeseries + linearity check for the crop dependence
+                                     on temp and conc.
+plotFig2.py                        - Map-plots illustrating EXIOBASE countries and ISIMIP cropdata coverage.
+plotFig3.py                        - Table showing available data in the ISIMIP dataset, and mapping used between EXIOBASE crop sectors and ISIMIP crop types.
+plotFig4.py                        - Temperature k-factors for 4 crop types.
+plotFig5.py                        - Concentration k-factors for 4 crop types.
+plotFig6.py                        - IO feedback results for 4 crop types. 
+plotFig7.py                        - IO feedback results where countries are sorted after mean temperature.
+plotFig8.py                        - Results from feedback dynamic version.
+additionalPlots.py                 - Creates figures equal to subfigure c-f in plotFig1.py. But with only including one
+                                     RCP-scenario and one crop type in each figure.
 </pre>
 
 
