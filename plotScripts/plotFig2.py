@@ -7,7 +7,7 @@ import cartopy.crs as crs
 from matplotlib import cm, colors
 import os
 
-isimipDir = "/div/no-backup/users/anenj/ISIMIP/"
+isimipDir = "ISIMIP/" #Path to ISIMIP dataset
 
 fig,axs = plt.subplots(2,2,figsize=(7,5),dpi=600)
 
@@ -22,8 +22,8 @@ regions = ['AT', 'AU', 'BE', 'BG', 'BR', 'CA', 'CH',
            'RO', 'RU', 'SE', 'SI', 'SK', 'TR', 'US',
            'ZA']
 
-df_regs = pd.read_csv("../prepareMaskStuff/countryCodesWithMapNr.csv",index_col="code2")
-ds_regs = xr.open_dataset("../prepareMaskStuff/GPW3_countries_0_5deg_2011_27315.nc")
+df_regs = pd.read_csv("countryCodesWithMapNr.csv",index_col="code2")
+ds_regs = xr.open_dataset("GPW3_countries_0_5deg_2011_27315.nc")   #country def. file
 
 regmap = ds_regs["countries_0_5deg"].squeeze()
 EXIOBASE_regs = regmap.copy()
@@ -48,9 +48,9 @@ plt.legend(bbox_to_anchor=(-0.02, 0.28),fontsize=8,loc="upper left")
 # Only plotting irrigated version sinnce that's the version I use
 #LPJML can choose any file and timestep 
 #GEPIC min number of non-nans is 54 183, timestep 89
-#=> f = /div/no-backup/users/anenj/ISIMIP/rcp26/co2/gepic_gfdl-esm2m_ewembi_rcp26_2005soc_co2_yield-ric-firr_global_annual_2006_2099.nc4
+#=> f = isimipDir+/rcp26/co2/gepic_gfdl-esm2m_ewembi_rcp26_2005soc_co2_yield-ric-firr_global_annual_2006_2099.nc4
 #CLM45
-#=> f = /div/no-backup/users/anenj/ISIMIP/rcp26/co2/clm45_gfdl-esm2m_ewembi_rcp26_2005soc_co2_yield-mai-firr_global_annual_2006_2099.nc4
+#=> f = isimipDir+/rcp26/co2/clm45_gfdl-esm2m_ewembi_rcp26_2005soc_co2_yield-mai-firr_global_annual_2006_2099.nc4
 
 vmax = 25  #make sure this max value make some sense
 vmin = -vmax
