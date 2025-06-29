@@ -35,11 +35,11 @@ blue = blue[2:,:]
 
 colList = np.concatenate((purp,red,green,blue),axis=0)
 
-df_cc = pd.read_csv("../prepareMaskStuff/countryCodeTable.csv",index_col=[2]) 
+df_cc = pd.read_csv("countryCodeTable.csv",index_col=[2]) 
 #for r,reg in enumerate(plotRegs):
 #    print(reg,df_cc.loc[reg,"Country"])
 
-indir = "../HYBRID/feedback_result/"
+indir = "../results/"
 
 f_concAndTemp = "concAndTempFeedback_dynamic.csv"
 f_conc = "concFeedback_dynamic.csv"
