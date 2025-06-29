@@ -5,7 +5,7 @@ import xarray as xr
 import numpy as np
 import os
 
-tempFactor_dir = "/div/qbo/users/anenj/GTDR/calcSensitivityFactors/tempFactors/"
+tempFactor_dir = "../results/tempFactors/"
 
 regions = ['AT', 'AU', 'BE', 'BG', 'BR', 'CA', 'CH',
            'CN', 'CY', 'CZ', 'DE', 'DK', 'EE', 'ES',
@@ -14,8 +14,6 @@ regions = ['AT', 'AU', 'BE', 'BG', 'BR', 'CA', 'CH',
            'LV', 'MT', 'MX', 'NL', 'NO', 'PL', 'PT',
            'RO', 'RU', 'SE', 'SI', 'SK', 'TR', 'US',
            'ZA']
-
-#(SKIPPING TW FROM LIST OF REGIONS SINCE IT'S NOT IN THE HYBRID VERSION)
 
 yearint = "15"   #number of years to average over
 st = "5"         #skipping first 5 years 
