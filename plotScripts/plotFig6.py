@@ -5,7 +5,7 @@ import xarray as xr
 import numpy as np
 import os
 
-indir = "../HYBRID/feedback_result/"
+indir = "../results/"
 
 tempCol = "#6600CC"
 concCol = "#009999"
