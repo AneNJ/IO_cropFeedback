@@ -5,7 +5,7 @@ import xarray as xr
 import numpy as np
 import os
 
-isimipDir = "/div/no-backup/users/anenj/ISIMIP/"
+isimipDir =  = "ISIMIP/" #Path to ISIMIP dataset
 w = "firr"
 
 #fig,axs = plt.subplots(3,2,figsize=(14,15))#,dpi=300)#600)
@@ -221,7 +221,7 @@ plt.yticks(fontsize=yticksize)
 
 labels= labelDict.copy()
 
-df = pd.read_csv("../calcSensitivityFactors/globFactors/k_conc_glob.csv",index_col=[0],header=[0])
+df = pd.read_csv("../results/k_conc_glob.csv",index_col=[0],header=[0])
 df = df[[i for i in df.columns if scen in i]]
 
 years = df.index
@@ -258,7 +258,7 @@ plt.sca(axs[2,1])
 plt.xticks(fontsize=xticksize)
 plt.yticks(fontsize=yticksize)
 
-df = pd.read_csv("../calcSensitivityFactors/globFactors/k_temp_glob_timeseries.csv",index_col=[0],header=[0])
+df = pd.read_csv("../results/k_temp_glob_timeseries.csv",index_col=[0],header=[0])
 
 df = df[[i for i in df.columns if scen in i]]
 
