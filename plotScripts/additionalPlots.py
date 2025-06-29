@@ -5,7 +5,7 @@ import xarray as xr
 import numpy as np
 import os
 
-isimipDir = "/div/no-backup/users/anenj/ISIMIP/"
+isimipDir =  = "ISIMIP/" #Path to ISIMIP dataset
 w = "firr"
 
 xticksize = 10
