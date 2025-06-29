@@ -5,19 +5,24 @@ import xarray as xr
 import numpy as np
 import os
 
-isimipDir = "ISIMIP/" #Path to ISIMIP dataset
+isimipDir = "/div/no-backup/users/anenj/ISIMIP/"
 w = "firr"
 
-xticksize = 15
-yticksize = 15
-plt.rc('legend', fontsize=15)
+xticksize = 10
+yticksize = 10
+plt.rc('legend', fontsize=10)
 plt.xticks(fontsize=xticksize)
 plt.yticks(fontsize=yticksize)
 
 scen = "rcp26"
 #scen = "rcp60"
 
-cropList = ["ric","whe","soy","mai"]
+cropList = ["mai","ric","soy","whe"]
+
+if scen=="rcp26":
+    figNrList = ["1","2","3","4"]
+else:
+    figNrList = ["5","6","7","8"]
 
 ################ Color definitions ################
 colDict = {"clm45" : "#6600CC",
@@ -29,8 +34,9 @@ labelDict = {"gepic":False,
              "clm45":False}
 ###################################################
 
-for cropType in cropList:
-    fig,axs = plt.subplots(2,2,figsize=(14,10),dpi=600)
+for c,cropType in enumerate(cropList):
+    figNr = figNrList[c]
+    fig,axs = plt.subplots(2,2,figsize=(7,5),dpi=600)
     ########## Plot change in yield due to conc-change ##########
     plt.sca(axs[0,0])
     plt.xticks(fontsize=xticksize)
@@ -62,7 +68,7 @@ for cropType in cropList:
 
     print("Number of cases in plot A: ", n)         
 
-    axs[0,0].set_ylabel("Relative change in yield due to\nchange in CO2 concentration\n[%]\n\n",font={"size":15})
+    axs[0,0].set_ylabel("Relative change in yield\ndue to change in CO2\nconcentration[%]",font={"size":10})
     handles, labels = plt.gca().get_legend_handles_labels() #saveing this to use as legend
     ##############################################################
     
@@ -90,7 +96,7 @@ for cropType in cropList:
       
         
     print("Number of cases in plot B: ", n)
-    axs[0,1].set_ylabel("Relative change in yield due to\nchange in global mean temperature\n[%]",font={"size":15})
+    axs[0,1].set_ylabel("\nRelative change in yield\ndue to change in global\nmean temperature [%]",font={"size":10})
     axs[0,1].set_ylim([-15,15])
     ############################################
     
@@ -99,7 +105,7 @@ for cropType in cropList:
     plt.xticks(fontsize=xticksize)
     plt.yticks(fontsize=yticksize)
 
-    df = pd.read_csv("../results/k_conc_glob.csv",index_col=[0],header=[0])
+    df = pd.read_csv("../calcSensitivityFactors/globFactors/k_conc_glob.csv",index_col=[0],header=[0])
     print(df.shape)
     df = df[[i for i in df.columns if scen in i]]
     df = df[[i for i in df.columns if cropType in i]]
@@ -119,7 +125,7 @@ for cropType in cropList:
                 
     print("Number of lines in plot C: ", n)
     axs[1,0].set_ylim(0, 0.003)
-    axs[1,0].set_ylabel("Sensitivity factor for concentration\n[1/ppm]\n",font={"size":15})
+    axs[1,0].set_ylabel("Sensitivity factor for\nconcentration [1/ppm]",font={"size":10})
     ###################################################
     
     ########## Plot k_temp timeseries ##########
@@ -127,7 +133,7 @@ for cropType in cropList:
     plt.xticks(fontsize=xticksize)
     plt.yticks(fontsize=yticksize)
 
-    df = pd.read_csv("../results/k_temp_glob_timeseries.csv",index_col=[0],header=[0])
+    df = pd.read_csv("../calcSensitivityFactors/globFactors/k_temp_glob_timeseries.csv",index_col=[0],header=[0])
     df = df[[i for i in df.columns if scen in i]]
     df = df[[i for i in df.columns if cropType in i]]
 
@@ -145,18 +151,15 @@ for cropType in cropList:
     
     axs[1,1].set_ylim(-0.3, 0.3)
     print("Number of lines in plot D: ", n)
-    axs[1,1].set_ylabel("Sensitivity factor for temperature\n[1/k]\n",font={"size":15})
+    axs[1,1].set_ylabel("Sensitivity factor for\ntemperature [1/k]",font={"size":10})
     ############################################
     
-    if len(handles)==2:
-        axs[0,1].legend(handles, labels, bbox_to_anchor=[1.32, 1.03],loc="upper right")
-    else:
-        axs[0,1].legend(handles, labels, bbox_to_anchor=[1.33, 1.03],loc="upper right")
-
+    axs[0,1].legend(handles, labels, bbox_to_anchor=[1.01, 1.26],loc="upper right",ncol=(len(handles)))
+ 
     letters = ["A)","B)","C)","D)"]
     for n,ax in enumerate(axs.flat):  
-        ax.text(0.02, .93, letters[n], transform=ax.transAxes, 
-                size=20, weight='bold')
+        ax.text(0.02, .86, letters[n], transform=ax.transAxes, 
+                size=15, weight='bold')
 
     axs[0,0].set_xlim(2006, 2099)
     axs[0,1].set_xlim(2006, 2099)
@@ -166,12 +169,12 @@ for cropType in cropList:
     axs[0,0].tick_params(bottom=False, labelbottom=False)
     axs[0,1].tick_params(bottom=False, labelbottom=False)
     
-    axs[1,0].set_xlabel("Year",font={"size":15})
-    axs[1,1].set_xlabel("Year",font={"size":15})
+    axs[1,0].set_xlabel("Year",font={"size":10})
+    axs[1,1].set_xlabel("Year",font={"size":10})
   
-    plt.subplots_adjust(wspace=0.32, hspace=None)
-    fig.tight_layout()
-    fName = "plots/figure1_additionalPlot_"+cropType+"_"+scen+".png"
+    plt.subplots_adjust(top=0.8, right=0.96 , left=0.14, wspace=0.44, hspace=None)
+    #fig.tight_layout()
+    fName = "plots/SI_figure"+figNr+"_"+cropType+"_"+scen+".png"
     plt.savefig(fName)
     #cmd = "display "+fName+" &"
     #os.system(cmd)

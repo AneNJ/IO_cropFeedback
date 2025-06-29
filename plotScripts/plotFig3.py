@@ -8,9 +8,13 @@ from matplotlib import cm, colors
 import os
 
 fig, axs = plt.subplot_mosaic([["A)", "A)","A)"], ["A)", "A)","A)"],["C)", "B)","B)"]],
-                              constrained_layout=False,figsize=(10,8),facecolor="#E5CCFF",dpi=600)
+                              constrained_layout=False,figsize=(7,6),facecolor="#E5CCFF",dpi=600)
 
-
+xticksize = 8
+yticksize = 8
+plt.rc('legend', fontsize=8)
+plt.xticks(fontsize=xticksize)
+plt.yticks(fontsize=yticksize)
 
 ISIMIP_cropTypes_dict = {"mai":"maize",
                          "soy":"soy",
@@ -46,7 +50,7 @@ scens = ["rcp26","rcp60","rcp85"]
 ############################### Table One ################################
 plt.sca(axs["A)"])
 
-indir = "ISIMIP/" #Path to ISIMIP dataset
+indir = "/div/no-backup/users/anenj/ISIMIP/"
 
 index = pd.MultiIndex.from_product([[" "+i for i in scens],ISIMIP_cropTypes],names=["",""])
 columns = pd.MultiIndex.from_product([cropMod,cmipMods],names=["",""])
@@ -77,9 +81,7 @@ cropMods = df.columns.get_level_values(0)
 forcing = df.columns.get_level_values(1)
 cropList = df.index.get_level_values(1)
 
-#df.columns = [i.split("-")[0] for i in forcing]
 df.columns = [cmipDict[i] for i in forcing] 
-#df.columns = forcing
 df.index = [ISIMIP_cropTypes_dict[i] for i in cropList]
 
 purp = mpl.colormaps["Purples"]
@@ -89,23 +91,22 @@ ax = sns.heatmap(df, annot=annot, annot_kws={"color":"#000000"}, cbar=False, fmt
 
 xticks = [0.5, 1.5, 5.5]
 xticksLabels = ["CLM45", "GEPIC", "LPJmL"]
-#sec = ax.secondary_xaxis(location=1.07)
 sec = ax.secondary_xaxis(location=1.1)
-sec.set_xticks(xticks, labels=xticksLabels,weight="bold")
+sec.set_xticks(xticks, labels=xticksLabels,weight="bold",size=8)
 sec.spines["top"].set_linewidth(0)
 sec.tick_params(top=False)
 
 yticks = [0.5, 12.5, 16.5]
 yticksLabels = ["RCP2.6", "RCP6.0", "RCP8.5"]
-sec = ax.secondary_yaxis(location=-0.15)
-sec.set_yticks(yticks, labels=yticksLabels,weight="bold")
+sec = ax.secondary_yaxis(location=-0.14)
+sec.set_yticks(yticks, labels=yticksLabels,weight="bold",size=8)
 sec.spines["left"].set_linewidth(0)
 sec.tick_params(left=False)
 
-ax.tick_params(top=False, labeltop=True, bottom=False, labelbottom=False,left=False)
+ax.tick_params(top=False, labeltop=True, bottom=False, labelbottom=False,left=False,labelsize=8)
 
 axs["A)"].text(-0.08, 1.1, "A)", transform=ax.transAxes, 
-               size=20, weight='bold')
+               size=10, weight='bold')
 
 
 ################################ Table Two ################################
@@ -149,7 +150,7 @@ ax.tick_params(top=False, labeltop=False, bottom=False, labelbottom=True,left=Fa
 plt.xticks(rotation=90)
 
 axs["B)"].text(-0.4, 0.84, "B)", transform=ax.transAxes, 
-               size=20, weight='bold')
+               size=10, weight='bold')
 
 axs["C)"].remove()
 

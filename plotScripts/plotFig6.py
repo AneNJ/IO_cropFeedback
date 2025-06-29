@@ -5,7 +5,7 @@ import xarray as xr
 import numpy as np
 import os
 
-indir = "../results/"
+indir = "../HYBRID/feedback_result/"
 
 tempCol = "#6600CC"
 concCol = "#009999"
@@ -24,7 +24,7 @@ df_conc["relDiff"] = 100*(df_conc["totprod new"]-df_conc["totprod old"])/df_conc
 df_temp = pd.read_csv(indir+f_temp,index_col=[0,1],header=[0])
 df_temp["relDiff"] = 100*(df_temp["totprod new"]-df_temp["totprod old"])/df_temp["totprod old"]
 
-fig,axs = plt.subplots(4,1,figsize=(14,15),dpi=600)
+fig,axs = plt.subplots(4,1,figsize=(7,8),dpi=600)
 
 #################### 1. plot ####################
 plt.sca(axs[0])
@@ -37,14 +37,17 @@ df["conc"] = df_conc.loc[idx,"relDiff"]
 df["temp"] = df_temp.loc[idx,"relDiff"]
 df = df.droplevel(1,axis=0)
 df[["conc","temp"]].plot(kind="bar", stacked=True,ax=axs[0],color=[concCol,tempCol],width=0.8)
+#xticks = axs[0].get_xticks()
 
-plt.scatter(range(0,len(idx)),df["tot"],color=totCol,label="total")
-plt.title(crop,x=0.999,y=0,fontsize=30,loc="right")
+plt.scatter(range(0,48),df["tot"],color=totCol,label="total",s=15)
+plt.title(crop,x=0.999,y=0,fontsize=15,loc="right")
 plt.legend('', frameon=False)
-fig.legend(bbox_to_anchor=(0.907,0.875),loc="lower right",fontsize=15,ncol=3)
-yTicks = [round(i,1) for i in axs[0].get_yticks()[1:-1]]
+#fig.legend(bbox_to_anchor=(0.907,0.875),loc="lower right",fontsize=10,ncol=3)
+fig.legend(bbox_to_anchor=(0.99,0.875),loc="lower right",fontsize=10,ncol=3)
+#print(axs[0].get_yticks())
+yTicks = [round(i,1) for i in axs[0].get_yticks()[1:]]
 ytick_labels = [str(i)+"%" for i in yTicks]
-plt.yticks(ticks=yTicks,labels=ytick_labels, fontsize=15)
+plt.yticks(ticks=yTicks,labels=ytick_labels, fontsize=10)
 #exit()
 #################### 2. plot ####################
 plt.sca(axs[1])
@@ -58,12 +61,12 @@ df["temp"] = df_temp.loc[idx,"relDiff"]
 df = df.droplevel(1,axis=0)
 df[["conc","temp"]].plot(kind="bar", stacked=True,ax=axs[1],color=[concCol,tempCol],width=0.8)
 
-plt.scatter(range(0,len(idx)),df["tot"],color=totCol,label="total")
-plt.title(crop,x=0.999,y=0,fontsize=30,loc="right")
+plt.scatter(range(0,len(idx)),df["tot"],color=totCol,label="total",s=15)
+plt.title(crop,x=0.999,y=0,fontsize=15,loc="right")
 plt.legend('', frameon=False)
 yTicks = [round(i,1) for i in axs[1].get_yticks()[1:-1]]
 ytick_labels = [str(i)+"%" for i in yTicks]
-plt.yticks(ticks=yTicks,labels=ytick_labels, fontsize=15)
+plt.yticks(ticks=yTicks,labels=ytick_labels, fontsize=10)
 #################### 3. plot ####################
 plt.sca(axs[2])
 crop = "Paddy rice"
@@ -75,12 +78,12 @@ df["conc"] = df_conc.loc[idx,"relDiff"]
 df["temp"] = df_temp.loc[idx,"relDiff"]
 df = df.droplevel(1,axis=0)
 df[["conc","temp"]].plot(kind="bar", stacked=True,ax=axs[2],color=[concCol,tempCol],width=0.8,label="")
-plt.scatter(range(0,len(idx)),df["tot"],color=totCol)
-plt.title(crop,x=0.999,y=0,fontsize=30,loc="right")
+plt.scatter(range(0,len(idx)),df["tot"],color=totCol,s=15)
+plt.title(crop,x=0.999,y=0,fontsize=15,loc="right")
 plt.legend('', frameon=False)
 yTicks = [round(i,1) for i in axs[2].get_yticks()[1:-1]]
 ytick_labels = [str(i)+"%" for i in yTicks]
-plt.yticks(ticks=yTicks,labels=ytick_labels, fontsize=15)
+plt.yticks(ticks=yTicks,labels=ytick_labels, fontsize=10)
 ##################################################
 #################### 4. plot ####################
 plt.sca(axs[3])
@@ -93,12 +96,12 @@ df["conc"] = df_conc.loc[idx,"relDiff"]
 df["temp"] = df_temp.loc[idx,"relDiff"]
 df = df.droplevel(1,axis=0)
 df[["conc","temp"]].plot(kind="bar", stacked=True,ax=axs[3],color=[concCol,tempCol],width=0.8,label="")
-plt.scatter(range(0,len(idx)),df["tot"],color=totCol)
-plt.title(crop,x=0.999,y=0,fontsize=30,loc="right")
+plt.scatter(range(0,len(idx)),df["tot"],color=totCol,s=15)
+plt.title(crop,x=0.999,y=0,fontsize=15,loc="right")
 plt.legend('', frameon=False)
 yTicks = [round(i,1) for i in axs[3].get_yticks()[1:-1]]
 ytick_labels = [str(i)+"%" for i in yTicks]
-plt.yticks(ticks=yTicks,labels=ytick_labels, fontsize=15)
+plt.yticks(ticks=yTicks,labels=ytick_labels, fontsize=10)
 ##################################################
 axs[0].axhline(y=0, color ="black", linestyle='--',linewidth=0.8)
 axs[1].axhline(y=0, color ="black", linestyle='--',linewidth=0.8)
@@ -115,22 +118,22 @@ axs[1].tick_params(bottom=False, labelbottom=False)
 axs[2].tick_params(bottom=False, labelbottom=False)
 axs[3].set_xticks(ticks=range(0,len(regions)),labels=regions,rotation=90)
 
-axs[0].set_ylabel("Relative\nchange in total\nproduction",fontsize=20)
-axs[1].set_ylabel("Relative\nchange in total\nproduction",fontsize=20)
-axs[2].set_ylabel("Relative\nchange in total\nproduction",fontsize=20)
-axs[3].set_ylabel("Relative\nchange in total\nproduction",fontsize=20)
+axs[0].set_ylabel("Relative\nchange in total\nproduction",fontsize=10)
+axs[1].set_ylabel("Relative\nchange in total\nproduction",fontsize=10)
+axs[2].set_ylabel("Relative\nchange in total\nproduction",fontsize=10)
+axs[3].set_ylabel("Relative\nchange in total\nproduction",fontsize=10)
 
-axs[3].set_xlabel("Region",fontsize=20)
+axs[3].set_xlabel("Region",fontsize=15)
 
-plt.xticks(fontsize=15)
+plt.xticks(fontsize=10)
 
 
 letters = ["A)","B)","C)","D)"]
 for n,ax in enumerate(axs.flat):  
-    ax.text(-0.1, 0.92, letters[n], transform=ax.transAxes, 
-            size=20, weight='bold')
-    
-plt.subplots_adjust(hspace=0.05)
+    ax.text(-0.12, 0.92, letters[n], transform=ax.transAxes, 
+            size=15, weight='bold')
+
+plt.subplots_adjust(hspace=0.05,right=0.98,left=0.15)
 
 fName = "plots/figure6.png"
 plt.savefig(fName)

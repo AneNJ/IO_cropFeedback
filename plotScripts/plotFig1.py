@@ -5,14 +5,15 @@ import xarray as xr
 import numpy as np
 import os
 
-isimipDir = "ISIMIP/" #Path to ISIMIP dataset
+isimipDir = "/div/no-backup/users/anenj/ISIMIP/"
 w = "firr"
 
-fig,axs = plt.subplots(3,2,figsize=(14,15),dpi=600)
+#fig,axs = plt.subplots(3,2,figsize=(14,15))#,dpi=300)#600)
+fig,axs = plt.subplots(3,2,figsize=(7,8),dpi=600)
 
-xticksize = 15
-yticksize = 15
-plt.rc('legend', fontsize=12)
+xticksize = 10
+yticksize = 10
+plt.rc('legend', fontsize=8)
 plt.xticks(fontsize=xticksize)
 plt.yticks(fontsize=yticksize)
 
@@ -105,7 +106,7 @@ for s,scen in enumerate(scens):
     #plt.plot(time,CO2, color=colorList_plot1and2[s], label=scen)
     plt.plot(time,CO2, color=colorList_plot1and2[s], label=scenLabelDict[scen])
     
-plt.ylabel("CO2 concentration\n[ppm]\n\n",font={"size":15})
+plt.ylabel("CO2 concentration\n[ppm]\n",font={"size":10})
 plt.legend()
 ###################################################
 
@@ -122,7 +123,7 @@ scens = ["rcp85","rcp60","rcp26"]
 for m,mod in enumerate(modList):
     for s,scen in enumerate(scens):
         col = colorList_plot1and2[s]
-        df = pd.read_csv(../results/globTemp/temp_"+mod+"_"+scen+".csv",index_col=[0])
+        df = pd.read_csv(isimipDir+"temp/csv/temp_"+mod+"_"+scen+".csv",index_col=[0])
         year = df["year"]
         temp = df["temp"]
         if m==0:
@@ -131,7 +132,7 @@ for m,mod in enumerate(modList):
         else:
             plt.plot(year,temp,color=col)
         
-plt.ylabel("Global mean temp\n[K]\n",font={"size":15})
+plt.ylabel("Global mean temp\n[K]",font={"size":10})
 plt.legend()
 #################################################
 
@@ -173,7 +174,7 @@ print("Number of cases in plot C: ", n)
 plt.plot(2020,0,label=" ",alpha=0)
 plt.plot(2020,0,label=" ",alpha=0)          
 
-axs[1,0].set_ylabel("Relative change in yield due to\nchange in CO2 concentration\n[%]\n\n",font={"size":15})
+axs[1,0].set_ylabel("Relative change in yield\ndue to change in CO2\nconcentration[%]",font={"size":10})
 #axs[1,0].legend(bbox_to_anchor=[0, 1],loc="upper left",ncol=2)
 ##############################################################
 
@@ -208,7 +209,7 @@ for case in caseList:
 plt.plot(2020,0,label=" ",alpha=0)
 plt.plot(2020,0,label=" ",alpha=0)          
 print("Number of cases in plot D: ", n)
-axs[1,1].set_ylabel("Relative change in yield due to\nchange in global mean temperature\n[%]",font={"size":15})
+axs[1,1].set_ylabel("\nRelative change in yiel\ndue to change in global\nmean temperature[%]",font={"size":10})
 axs[1,1].set_ylim([-15,15])
 ############################################
 
@@ -220,7 +221,7 @@ plt.yticks(fontsize=yticksize)
 
 labels= labelDict.copy()
 
-df = pd.read_csv("../results/k_conc_glob.csv",index_col=[0],header=[0])
+df = pd.read_csv("../calcSensitivityFactors/globFactors/k_conc_glob.csv",index_col=[0],header=[0])
 df = df[[i for i in df.columns if scen in i]]
 
 years = df.index
@@ -247,7 +248,7 @@ for col in df.columns:
 print("Number of lines in plot E: ", n)
 axs[2,0].set_ylim(0, 0.003)
 axs[2,0].legend(bbox_to_anchor=[1, 1], ncol=2, loc="upper right")
-axs[2,0].set_ylabel("Sensitivity factor for concentration\n[1/ppm]\n",font={"size":15})
+axs[2,0].set_ylabel("Sensitivity factor for\nconcentration [1/ppm]",font={"size":10})
 
 handles, labels = plt.gca().get_legend_handles_labels() #saveing this to use as legend for subfig c, d and f too 
 ###################################################
@@ -257,7 +258,7 @@ plt.sca(axs[2,1])
 plt.xticks(fontsize=xticksize)
 plt.yticks(fontsize=yticksize)
 
-df = pd.read_csv("../results/k_temp_glob_timeseries.csv",index_col=[0],header=[0])
+df = pd.read_csv("../calcSensitivityFactors/globFactors/k_temp_glob_timeseries.csv",index_col=[0],header=[0])
 
 df = df[[i for i in df.columns if scen in i]]
 
@@ -276,22 +277,18 @@ for col in df.columns:
     n+=1
         
 axs[2,1].set_ylim(-0.3, 0.3)
-#axs[2,1].set_ylim(-0.2, 0.2)
 print("Number of lines in plot F: ", n)
-axs[2,1].set_ylabel("Sensitivity factor for temperature\n[1/k]\n",font={"size":15})
+axs[2,1].set_ylabel("\nSensitivity factor for\ntemperature[1/k]",font={"size":10})
 ####################################################
 
 axs[1,0].legend(handles, labels ,bbox_to_anchor=[0, 1],loc="upper left",ncol=2)
 axs[1,1].legend(handles, labels ,bbox_to_anchor=[0, 1],loc="upper left",ncol=2)
-#axs[2,1].legend(handles, labels ,bbox_to_anchor=[1, 1],loc="upper right",ncol=2)
 axs[2,1].legend(handles[:-2], labels[:-2],bbox_to_anchor=[1, 1],loc="upper right",ncol=2)
 
 letters = ["A)","B)","C)","D)","E)","F)"]
 for n,ax in enumerate(axs.flat):  
-    #ax.text(-0.1, 1.1, letters[n], transform=ax.transAxes, 
-    #        size=20, weight='bold')
     ax.text(-0.1, 1.05, letters[n], transform=ax.transAxes, 
-            size=20, weight='bold')
+            size=15, weight='bold')
 
 
 axs[0,0].set_xlim(2006, 2099)
@@ -301,7 +298,7 @@ axs[0,1].set_xlim(2006, 2099)
 axs[1,1].set_xlim(2006, 2099)
 axs[2,1].set_xlim(2006, 2099)
 
-plt.subplots_adjust(wspace=0.35, hspace=None)
+plt.subplots_adjust(wspace=0.4, hspace=None,right=0.95, left=0.15, top=0.90, bottom=0.1)
 fName = "plots/figure1.png"
 plt.savefig(fName)
 #cmd = "display "+fName+" &"

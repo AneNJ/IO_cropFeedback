@@ -35,22 +35,22 @@ blue = blue[2:,:]
 
 colList = np.concatenate((purp,red,green,blue),axis=0)
 
-df_cc = pd.read_csv("countryCodeTable.csv",index_col=[2]) 
+df_cc = pd.read_csv("../prepareMaskStuff/countryCodeTable.csv",index_col=[2]) 
 #for r,reg in enumerate(plotRegs):
 #    print(reg,df_cc.loc[reg,"Country"])
 
-indir = "../results/"
+indir = "../HYBRID/feedback_result/"
 
 f_concAndTemp = "concAndTempFeedback_dynamic.csv"
 f_conc = "concFeedback_dynamic.csv"
 f_temp = "tempFeedback_dynamic.csv"
 
-fig,axs = plt.subplots(2,2,figsize=(14,10),dpi=600)
+fig,axs = plt.subplots(2,2,figsize=(7,6),dpi=600)
 fig.delaxes(axs[1,1])
 
 #conc and temp feedback
 plt.sca(axs[0,0])
-plt.xticks(fontsize=15,rotation=30)
+plt.xticks(fontsize=10,rotation=30)
 
 df = pd.read_csv(indir+f_concAndTemp,index_col=[0,1],header=[0])
 df.insert(0,"2010",df["orig"])    #Move orig to
@@ -87,11 +87,10 @@ for r,reg in enumerate(df_oneCrop.index):
 
 yTicks = [round(i,1) for i in axs[0,0].get_yticks()[1:-1]]
 ytick_labels = [str(i)+"%" for i in yTicks]
-plt.yticks(ticks=yTicks,labels=ytick_labels, fontsize=15)
-        
+plt.yticks(ticks=yTicks,labels=ytick_labels, fontsize=10)
+plt.xticks(ticks=axs[0,0].get_xticks()[::2])
 #temp feedback
 plt.sca(axs[1,0])
-plt.xticks(fontsize=15,rotation=30)
 
 df = pd.read_csv(indir+f_temp,index_col=[0,1],header=[0])
 years = df.columns
@@ -126,14 +125,17 @@ for r,reg in enumerate(df_oneCrop.index):
         plt.plot(years,df_oneCrop.loc[reg],color=colList[r],linewidth=linewidth)
     else:
         plt.plot(years,df_oneCrop.loc[reg],"--",color=colList[r],linewidth=linewidth)
-        
+
 yTicks = [round(i,1) for i in axs[1,0].get_yticks()[1:-1]]
 ytick_labels = [str(i)+"%" for i in yTicks]
-plt.yticks(ticks=yTicks,labels=ytick_labels, fontsize=15)
+plt.yticks(ticks=yTicks,labels=ytick_labels, fontsize=10)
+
+plt.xticks(ticks=axs[1,0].get_xticks()[::2])
+plt.xticks(fontsize=10,rotation=30)
 
 #conc feedback
 plt.sca(axs[0,1])
-plt.xticks(fontsize=15,rotation=30)
+plt.xticks(fontsize=10,rotation=30)
 
 df = pd.read_csv(indir+f_conc,index_col=[0,1],header=[0])
 years = df.columns
@@ -161,7 +163,7 @@ df_oneCrop = df_oneCrop.droplevel([1],axis=0)
 df_oneCrop = df_oneCrop.loc[plotRegs]
 for r,reg in enumerate(df_oneCrop.index):
     if reg == "Global":
-        label = "Total all EXIOBASE countries"
+        label = "Total all EXIOBASE\ncountries"
         linewidth = 3
     else:
         label = df_cc.loc[reg,"Country"]
@@ -169,32 +171,35 @@ for r,reg in enumerate(df_oneCrop.index):
     if "Great Britain" in label:
         label = "United Kingdom"
     if "America" in label:
-        label = "United States of America"
+        label = "United States of\nAmerica"
     if r%2==0:
         plt.plot(years,df_oneCrop.loc[reg],color=colList[r],label=label,linewidth=linewidth)
     else:
         plt.plot(years,df_oneCrop.loc[reg],"--",color=colList[r],label=label,linewidth=linewidth)
 
-yTicks = [round(i,1) for i in axs[0,1].get_yticks()[1:-1]]
+
+yTicks = axs[0,1].get_yticks()[1::2]
 ytick_labels = [str(i)+"%" for i in yTicks]
-plt.yticks(ticks=yTicks,labels=ytick_labels, fontsize=15)
-        
+plt.yticks(ticks=yTicks,labels=ytick_labels, fontsize=10)
+plt.xticks(ticks=axs[0,1].get_xticks()[::2])
+
 letters = ["A)","B)","C)",""]
 for n,ax in enumerate(axs.flat):  
-    ax.text(-0.2, 0.95, letters[n], transform=ax.transAxes, 
-            size=20, weight='bold')
+    ax.text(-0.2, 1.05, letters[n], transform=ax.transAxes, 
+            size=15, weight='bold')
     
-axs[0,0].set_ylabel("Change in total\nproduction relative\nthe first year",fontsize=20)
-axs[1,0].set_ylabel("Change in total\nproduction relative\nthe first year",fontsize=20)
-axs[1,0].set_xlabel("Year",fontsize=20)
-axs[0,1].set_xlabel("Year",fontsize=20)
+axs[0,0].set_ylabel("Change in total\nproduction relative\nthe first year",fontsize=10)
+axs[1,0].set_ylabel("Change in total\nproduction relative\nthe first year",fontsize=10)
+axs[1,0].set_xlabel("Year",fontsize=15)
+axs[0,1].set_xlabel("Year",fontsize=15)
 
-axs[0,0].text(-0.135, -3.4, "Temperature and\nconcentration\nfeedback", size=15, weight='bold')
-axs[1,0].text(-0.135, -1.8, "Only temperature\nfeedback", size=15, weight='bold')
-axs[0,1].text(0., -1.5, "Only concentration\nfeedback", size=15, weight='bold')
+axs[0,0].text(-0.135, -3.8, "Temperature and\nconcentration\nfeedback", size=10, weight='bold')
+axs[1,0].text(-0.135, -2.3, "Only temperature\nfeedback", size=10, weight='bold')
+axs[0,1].text(0., -1.5, "Only concentration\nfeedback", size=10, weight='bold')
 
+axs[0,1].legend(bbox_to_anchor=[-0.3, -0.3],loc="upper left",fontsize=10,ncol=2)
 
-axs[0,1].legend(bbox_to_anchor=[-0.05, -0.3],loc="upper left",fontsize=15,ncol=2)
+plt.subplots_adjust(left=0.16,wspace=0.3)# hspace=None,right=0.95, , top=0.90, bottom=0.1)
 
 fName = "plots/figure8.png"
 plt.savefig(fName)
